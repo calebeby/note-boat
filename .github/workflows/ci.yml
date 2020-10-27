@@ -1,9 +1,9 @@
-name: Tests
+name: CI
 
 on: [push, pull_request]
 
 jobs:
-  build:
+  Test:
     runs-on: ubuntu-latest
 
     strategy:
