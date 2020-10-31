@@ -14,5 +14,6 @@
     "forceConsistentCasingInFileNames": true,
     "jsxFactory": "h",
     "jsxFragmentFactory": "Fragment"
-  }
+  },
+  "include": ["**/*.tsx", "**/*.ts"]
 }
