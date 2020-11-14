@@ -7,12 +7,12 @@ interface NDocBlockBase {
   id: string
 }
 
-interface NDocBlockText extends NDocBlockBase {
+export interface NDocBlockText extends NDocBlockBase {
   type: NDocBlockType.Text
   contents: string
 }
 
-type NDocBlock = NDocBlockText
+export type NDocBlock = NDocBlockText
 
 /////////////////////////////////////////////////////////////////////////////////
 
