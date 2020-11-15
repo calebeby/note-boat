@@ -1,3 +1,4 @@
+import { css } from 'goober'
 import { h } from 'preact'
 import { useEffect, useRef } from 'preact/hooks'
 import {
@@ -9,18 +10,24 @@ import {
 } from './history'
 import { keepCaretPos } from './utils/keep-caret-position'
 
+const docStyle = css`
+  width: 100%;
+`
+
 interface Props {
   onNewRevision: (revision: NDocRevision) => void
+  isEditable: boolean
   doc: NDoc
 }
 
-export const Doc = ({ doc, onNewRevision }: Props) => {
+export const Doc = ({ doc, isEditable, onNewRevision }: Props) => {
   return (
-    <div>
+    <main class={docStyle}>
       {doc.blocks.map((block) => {
         if (block.type === NDocBlockType.Text) {
           return (
             <BlockText
+              isEditable={isEditable}
               key={block.id}
               block={block}
               onNewRevision={onNewRevision}
@@ -28,15 +35,17 @@ export const Doc = ({ doc, onNewRevision }: Props) => {
           )
         }
       })}
-    </div>
+    </main>
   )
 }
 
 const BlockText = ({
   block,
+  isEditable,
   onNewRevision,
 }: {
   block: NDocBlockText
+  isEditable: boolean
   onNewRevision: (revision: NDocRevision) => void
 }) => {
   const elRef = useRef<HTMLParagraphElement>()
@@ -82,7 +91,7 @@ const BlockText = ({
   return (
     <p
       ref={elRef}
-      contentEditable
+      contentEditable={isEditable}
       onInput={() => {
         clearTimeout(updateTimeout.current)
         updateTimeout.current = setTimeout(() => {
